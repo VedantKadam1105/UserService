@@ -11,7 +11,17 @@ pipeline {
         NAMESPACE       = 'hotel-rating-application'
         DEPLOYMENT_NAME = 'user-service'
         CONTAINER_NAME  = 'user-service'
-        // No AWS credentials needed here -- the EC2's IAM role (Jenkins-Agent-Role) handles auth automatically
+
+        // App config -- plain, non-secret values
+        DATABASE_PORT   = '3306'
+        DATABASE_NAME   = 'microservices'
+        EUREKA_URL      = 'https://eureka-hotel-rating-application.engineersmomentum.in/eureka'
+
+        // Secrets -- pulled from Jenkins Credentials store
+        DATABASE_USERNAME = credentials('database-username')
+        DATABASE_PASSWORD = credentials('database-password')
+        JWT_SECRET         = credentials('jwt-secret')
+        DATABASE_HOST   = credentials('database-host')
     }
 
     stages {
